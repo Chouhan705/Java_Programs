@@ -1,0 +1,384 @@
+import java.util.*;
+public class Unitconverter
+{
+	public static void main(String[] args) 
+	{
+	    System.out.println("Welcome to THE Unit Converter");
+	    System.out.println("Select desired Quantity");
+	    System.out.println("");
+	    System.out.println("1 : Length");
+	    System.out.println("2 : Weight");
+	    System.out.println("3 : Speed");
+	    System.out.println("4 : Tempreture");
+	    Scanner check = new Scanner(System.in);
+	    int q=check.nextInt();
+	     switch(q)
+	     {
+	         case 1: 
+	         {
+	         length(q);
+	         } break;
+	         case 2: 
+	         {
+	         weight(q);
+	         } break;
+	         case 3: 
+	         {
+	         speed(q);
+	         } break;
+	         case 4: 
+	         {
+	         temp(q);
+	         } break;
+	     }
+	}
+
+    public static int length (int q)
+{
+    System.out.println("Choose the Quantity to convert");
+    System.out.println("");
+    System.out.println("1 : Meters");
+    System.out.println("2 : Centimeters");
+    System.out.println("3 : Kilometers");
+    Scanner check = new Scanner(System.in);
+    
+    int i=check.nextInt();
+    switch(i)
+	     {
+	         case 1: 
+	         {
+	         System.out.println("Enter the Length in Meters");
+	         } break;
+	           case 2: 
+	         {
+	         System.out.println("Enter the Length in Centimeters");
+	         } break;
+	           case 3: 
+	         {
+	         System.out.println("Enter the Length in Kilometers");
+	         } break;
+	     }
+    float l1=check.nextInt();
+	 
+	System.out.println("Choose the Quantity to convert to");
+    System.out.println("");
+    System.out.println("1 : Meters");
+    System.out.println("2 : Centimeters");
+    System.out.println("3 : Kilometers");
+    
+    int f = check.nextInt();
+    float l2=0;
+    
+    if(i==1)
+    {
+        switch(f)
+	     {
+	           case 2: 
+	         {
+	             l2=l1*100;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	           case 3: 
+	         {
+	             l2=l1/1000;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	     }
+    }
+    if(i==2)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             l2=l1/100;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	           case 3: 
+	         {
+	             l2=l1/100000;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	     }
+    }
+    if(i==3)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             l2=l1*1000;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	           case 2: 
+	         {
+	             l2=l1*100000;
+	         System.out.println("After conversion the length is :" +l2);
+	         } break;
+	     }
+    }
+    return 0;
+}
+
+    public static int weight (int q)
+{
+    System.out.println("Choose the Quantity to convert");
+    System.out.println("");
+    System.out.println("1 : MiliGrams");
+    System.out.println("2 : Grams");
+    System.out.println("3 : KiloGrams");
+    Scanner check = new Scanner(System.in);
+    
+    int i=check.nextInt();
+    switch(i)
+	     {
+	         case 1: 
+	         {
+	         System.out.println("Enter the weight in MiliGrams");
+	         } break;
+	           case 2: 
+	         {
+	         System.out.println("Enter the weight in Grams");
+	         } break;
+	           case 3: 
+	         {
+	         System.out.println("Enter the weight in KiloGrams");
+	         } break;
+	     }
+	float w1=check.nextInt();
+	 
+	System.out.println("Choose the Quantity to convert to");
+    System.out.println("");
+    System.out.println("1 : MiliGrams");
+    System.out.println("2 : Grams");
+    System.out.println("3 : KiloGrams");
+    
+    int f = check.nextInt();
+    float w2=0;
+    
+    if(i==1)
+    {
+        switch(f)
+	     {
+	           case 2: 
+	         {
+	             w2=w1/1000;
+	         System.out.println("After conversion the weight is :" +w2);
+	         } break;
+	           case 3: 
+	         {
+	             w2=w1/1000000;
+	         System.out.println("After conversion the weight is :" +w2);
+	         } break;
+	     }
+    }
+    if(i==2)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             w2=w1*1000;
+	         System.out.println("After conversion the length is :" +w2);
+	         } break;
+	           case 3: 
+	         {
+	             w2=w1/1000;
+	         System.out.println("After conversion the length is :" +w2);
+	         } break;
+	     }
+    }
+    if(i==3)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             w2=w1*1000000;
+	         System.out.println("After conversion the length is :" +w2);
+	         } break;
+	           case 2: 
+	         {
+	             w2=w1*1000;
+	         System.out.println("After conversion the length is :" +w2);
+	         } break;
+	     }
+    }
+    return 0;
+}
+
+    public static int speed (int q)
+{
+    System.out.println("Choose the Quantity to convert");
+    System.out.println("");
+    System.out.println("1 : Meters/Seconds");
+    System.out.println("2 : Kilometers/Hours");
+    System.out.println("3 : Miles/Hours");
+    Scanner check = new Scanner(System.in);
+    
+    int i=check.nextInt();
+    switch(i)
+	     {
+	         case 1: 
+	         {
+	         System.out.println("Enter the Speed in Meters/Seconds");
+	         } break;
+	           case 2: 
+	         {
+	         System.out.println("Enter the Speed in Kilometers/Hours");
+	         } break;
+	           case 3: 
+	         {
+	         System.out.println("Enter the Speed in Miles/Hours");
+	         } break;
+	     }
+	float s1=check.nextInt();
+	 
+	System.out.println("Choose the Quantity to convert to");
+    System.out.println("");
+    System.out.println("1 : Meters/Seconds");
+    System.out.println("2 : Kilometers/Hours");
+    System.out.println("3 : Miles/Hours");
+    
+    int f = check.nextInt();
+    double s2=0;
+    
+    if(i==1)
+    {
+        switch(f)
+	     {
+	           case 2: 
+	         {
+	             s2=s1*18/5;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	           case 3: 
+	         {
+	             s2=s1*2.236;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	     }
+    }
+    if(i==2)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             s2=s1/18*5;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	           case 3: 
+	         {
+	             s2=s1/1.609;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	     }
+    }
+    if(i==3)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             s2=s1/2.236;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	           case 2: 
+	         {
+	             s2=s1*1.609;
+	         System.out.println("After conversion the Speed is :" +s2);
+	         } break;
+	     }
+    }
+    return 0;
+}
+
+    public static int temp (int q)
+{
+    System.out.println("Choose the Quantity to convert");
+    System.out.println("");
+    System.out.println("1 : Celcius");
+    System.out.println("2 : Farenheit");
+    System.out.println("3 : Kelvin");
+    Scanner check = new Scanner(System.in);
+    
+    int i=check.nextInt();
+    switch(i)
+	     {
+	         case 1: 
+	         {
+	         System.out.println("Enter the tempreture in Celcius");
+	         } break;
+	           case 2: 
+	         {
+	         System.out.println("Enter the tempreture in Farenheit");
+	         } break;
+	           case 3: 
+	         {
+	         System.out.println("Enter the tempreture in Kelvin");
+             } break;
+	     }
+	 float t1=check.nextInt();
+	 
+	System.out.println("Choose the Quantity to convert to");
+    System.out.println("");
+    System.out.println("1 : Celcius");
+    System.out.println("2 : Farenheit");
+    System.out.println("3 : Kelvin");
+    
+    int f = check.nextInt();
+    double t2=0;
+    
+    if(i==1)
+    {
+        switch(f)
+	     {
+	           case 2: 
+	         {
+	             t2=(t1*1.8)+32;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	           case 3: 
+	         {
+	             t2=t1+273.15;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	     }
+    }
+    if(i==2)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             t2=(t1-32)/1.8;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	           case 3: 
+	         {
+	             t2=((t1-32)/1.8)+273.15;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	     }
+    }
+    if(i==3)
+    {
+        switch(f)
+	     {
+	           case 1: 
+	         {
+	             t2=t1-273.15;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	           case 2: 
+	         {
+	             t2=1.8*(t1-273.15)+32;
+	         System.out.println("After conversion the tempreture is :" +t2);
+	         } break;
+	     }
+    }
+    return 0;
+}
+
+}
