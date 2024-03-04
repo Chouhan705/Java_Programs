@@ -12,6 +12,7 @@ public class everything
         System.out.println("1.Calculator");
         System.out.println("2.Pattern Generator");
         System.out.println("3.Matrix");
+        System.out.println("4.Arrays");
         int choice1 = sc.nextInt();
         switch(choice1)
         {
@@ -23,6 +24,9 @@ public class everything
             break;
             case 3:
             matrix();
+            break;
+            case 4:
+            array();
             break;
             default:
             System.out.println("Invalid Choice");
@@ -48,8 +52,9 @@ public class everything
         }
         else
         {
-         System.out.println("Enter two number :");
+         System.out.println("Enter number 1 :");
          int a = sc.nextInt();
+         System.out.println("Enter number 2 :");
          int b = sc.nextInt();
 
          switch (choice2)
@@ -58,13 +63,27 @@ public class everything
                    System.out.println(a + " + " + b + " = " + (a + b));
                    break;
                case 2:
+               if(a>b)
+               {
                    System.out.println(a + " - " + b + " = " + (a - b));
+               }
+               if(a<b)
+               {
+                System.out.println(b + " - " + a + " = " + (b - a));
+               }
                    break;
                 case 3:
                     System.out.println(a + " * " + b + " = " + (a * b));
                     break;
                 case 4:
+                if(b==0)
+                {
+                    System.out.priontln("Division not possible");
+                }
+                else
+                {
                     System.out.println(a + " / " + b + " = " + (a / b));
+                }
                     break;
                 case 5:
                     System.out.println(a + " % " + b + " = " + (a % b));
@@ -82,7 +101,7 @@ public class everything
             }
         }
         System.out.println("Do you want to continue? (y/n)");
-        System.out.println("If you want to go back to main menu, enter B");
+        System.out.println("If you want to go back to main menu, Enter (b) \n");
         char ch = sc.next().charAt(0);
         if(ch=='y'||ch=='Y')
         {
@@ -165,6 +184,7 @@ public class everything
             }  
         } 
         System.out.println("Do you want to continue? (y/n)");
+        System.out.println("\nIf you wan to go back to the main menu, Enter (b) \n");
         char ch = sc.next().charAt(0);
         if(ch=='y'||ch=='Y')
         {
@@ -196,7 +216,7 @@ public class everything
         else
         {
             switch (choice)
-             {
+    {
                 case 1:
         System.out.println("Enter the number of rows :");
         row = sc.nextInt();
@@ -321,7 +341,8 @@ public class everything
             }
             System.out.println();//newline after each row
         }
-
+        break;
+        
         case 3:
         int[][] m5 = new int[10][10];
         int[][] m6 = new int[10][10];
@@ -525,6 +546,7 @@ public class everything
     }
     }
     System.out.println("Do you want to continue? (y/n)");
+    System.out.println("\nIf you wan to go back to the main menu, Enter (b) \n");
     char ch = sc.next().charAt(0);
     if(ch=='y'||ch=='Y')
     {
@@ -539,6 +561,110 @@ public class everything
         mainmenu();
     }
     }
+    static void array()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose operation to perform :");
+        System.out.println("1: Ascending order sorting");
+        System.out.println("2: Decending order sorting");
+        int choice =sc.nextInt();
+        int [] a1 = new int[100];
+        int [] a2 = new int[100];
+        int [] a3 = new int[100];
+        int i,j;
+        switch(choice)
+        {
+            case 1:
+            System.out.println("Enter the number of elements in the array :");
+            int size = sc.nextInt();
+            System.out.println("\nEnter the elements in the array :");
+            for(i=0;i<size;i++)
+            {
+                a1[i] = sc.nextInt();
+            }
+            System.out.println("\nThe array is :");
+            for(i=0;i<size;i++)
+            {
+                System.out.print(a1[i]+" ");
+            }
+            System.out.println("\nThe array sorted in an ascending order is :");
+            int small;
+            for(i=0;i<size;i++)
+            {
+                for(j=0;j<size-i-1;j++)
+                {
+                if(a1[j] > a1[j+1])
+                {
+                    small = a1[j];
+                    a1[j] = a1[j+1];
+                    a1[j+1] = small;
+                }
+            }
+            }
+            for(i=0;i<size;i++)
+            {
+                System.out.print(a1[i]+" ");
+            }
+            break;
+            case 2:
+            System.out.println("Enter the number of elements in the array :");
+            size = sc.nextInt();
+            System.out.println("\nEnter the elements in the array :");
+            for(i=0;i<size;i++)
+            {
+                a1[i] = sc.nextInt();
+            }
+            System.out.println("\nThe array is :");
+            for(i=0;i<size;i++)
+            {
+                System.out.print(a1[i]+" ");
+            }
+            System.out.println("\nThe array sorted in a descending order is :");
+            int big;
+            for(i=0;i<size;i++)
+            {
+                for(j=0;j<size-i-1;j++)
+                {
+                if(a1[j] < a1[j+1])
+                {
+                    big = a1[j];
+                    a1[j] = a1[j+1];
+                    a1[j+1] = big;
+                }
+            }
+            }
+            for(i=0;i<size;i++)
+            {
+                System.out.print(a1[i]+" ");
+            }
+            break;
+
+
+        }
+
+
+
+
+
+
+
+        System.out.println("\n\nDo you want to continue? (y/n)");
+        System.out.println("\nIf you want to go back to the Main Menu, Enter (b) \n");
+        char ch = sc.next().charAt(0);
+        if(ch=='y'||ch=='Y')
+        {
+            array();
+        }
+        if(ch=='n'||ch=='N')
+        {
+            System.out.println("THANK YOU!");
+        }
+        if(ch=='b'||ch=='B')
+        {
+            mainmenu();
+        }
+    }
+
 
     public static void main(String[] args)
     {   
