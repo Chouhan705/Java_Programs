@@ -567,6 +567,9 @@ public class everything
         System.out.println("Choose operation to perform :");
         System.out.println("1: Ascending order sorting");
         System.out.println("2: Decending order sorting");
+        System.out.println("3: Greatest element from array");
+        System.out.println("4: Smallest element from array");
+
         int choice =sc.nextInt();
         int [] a1 = new int[100];
         int [] a2 = new int[100];
@@ -606,6 +609,7 @@ public class everything
                 System.out.print(a1[i]+" ");
             }
             break;
+
             case 2:
             System.out.println("Enter the number of elements in the array :");
             size = sc.nextInt();
@@ -639,15 +643,68 @@ public class everything
             }
             break;
 
+            case 3:
+            
+                System.out.println("Enter the number of elements in the array :");
+                size = sc.nextInt();
+                System.out.println("\nEnter the elements in the array :");
+                for(i=0;i<size;i++)
+                {
+                    a1[i] = sc.nextInt();
+                }
+                System.out.println("\nThe array is :");
+                for(i=0;i<size;i++)
+                {
+                    System.out.printf(a1[i]+" ");
+                }
+                System.out.println(" ");
+
+                int greatest = a1[0];
+                i = 0;
+                for(i=0;i<size;i++)
+                {
+                    if(a1[i] > greatest)
+                    {
+                    greatest=a1[i];
+                    }
+                }
+
+                System.out.println("The greatest element in the array is : "+ greatest);
+
+                break;
+                case 4:
+            
+                System.out.println("Enter the number of elements in the array :");
+                size = sc.nextInt();
+                System.out.println("\nEnter the elements in the array :");
+                for(i=0;i<size;i++)
+                {
+                    a1[i] = sc.nextInt();
+                }
+
+                System.out.println("\nThe array is :");
+                for(i=0;i<size;i++)
+                {
+                    System.out.print(a1[i]+" ");
+                }
+
+                System.out.println(" ");
+
+                int smallest = a1[0];
+                i = 0;
+                for(;i<size;i++)
+                {
+                    if(a1[i] < smallest)
+                    {
+                    smallest=a1[i];
+                    }
+                }
+
+                System.out.println("The greatest element in the array is : "+ smallest);
+
+                break;
 
         }
-
-
-
-
-
-
-
         System.out.println("\n\nDo you want to continue? (y/n)");
         System.out.println("\nIf you want to go back to the Main Menu, Enter (b) \n");
         char ch = sc.next().charAt(0);
@@ -663,6 +720,10 @@ public class everything
         {
             mainmenu();
         }
+    }
+    static void clear()
+    {
+        
     }
 
 
