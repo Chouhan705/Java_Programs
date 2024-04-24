@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class everything
 {
@@ -13,6 +14,8 @@ public class everything
         System.out.println("2.Pattern Generator");
         System.out.println("3.Matrix");
         System.out.println("4.Arrays");
+        System.out.println("5.Clear Screen");
+
         int choice1 = sc.nextInt();
         switch(choice1)
         {
@@ -27,6 +30,9 @@ public class everything
             break;
             case 4:
             array();
+            break;
+            case 5:
+            System.out.println("\033[H\033[2J");
             break;
             default:
             System.out.println("Invalid Choice");
@@ -135,6 +141,7 @@ public class everything
         {
             System.out.println("Enter the lenght of the pattern :");
             int length = sc.nextInt();
+            System.out.println("");
             switch (choice)
             {
                 case 1://square
@@ -720,10 +727,6 @@ public class everything
         {
             mainmenu();
         }
-    }
-    static void clear()
-    {
-        
     }
 
 
