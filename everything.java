@@ -751,7 +751,7 @@ public class everything
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose operation to perform :");
         System.out.println("1: String length");
-        System.out.println("2: String concatenation");
+        System.out.println("2: String Separator");
         System.out.println("3: String comparison");
         System.out.println("4: String reverse");
         System.out.println("5: String substring");
@@ -767,20 +767,13 @@ public class everything
             break;
 
             case 2:
-            System.out.println("Enter the first string :");
-            s1 = sc.next();
-            System.out.println("Enter the second string :");
-            s2 = sc.next();
-            System.out.println("Do you want a space in between?");
-            System.out.println("if yes then enter y else n");
-            char ch = sc.next().charAt(0);
-            if(ch=='y')
+            System.out.println("Enter the strings with underscroll(_) as the partition in between");
+            s1=sc.next();
+            String breaker="[_]";
+            String[] result2=s1.split(breaker);
+            for(int i=0;i<result2.length;i++)
             {
-                System.out.println("The concatenated string is : "+s1+" "+s2);
-            }
-            else
-            {
-                System.out.println("The concatenated string is : "+s1.concat(s2));
+                System.out.println(result2[i]);
             }
 
             break;
@@ -841,7 +834,7 @@ public class everything
                 System.out.println("The string is not a palindrome");
             }
             break;
-            
+
             default:
             System.out.println("Invalid choice");
             
