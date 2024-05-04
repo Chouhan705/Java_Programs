@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 
 public class everything
 {
@@ -15,6 +16,7 @@ public class everything
         System.out.println("3.Matrix");
         System.out.println("4.Arrays");
         System.out.println("5.Clear Screen");
+        System.out.println("6.String");
 
         int choice1 = sc.nextInt();
         switch(choice1)
@@ -34,9 +36,13 @@ public class everything
             case 5:
             System.out.println("\033[H\033[2J");
             break;
+            case 6:
+            string();
+            break;
             default:
             System.out.println("Invalid Choice");
             break;
+
         }
     }
     static void calculator()
@@ -187,7 +193,19 @@ public class everything
                         System.out.print("*");  
                     }   
                     System.out.println("");  
-                }  
+                } 
+                break;
+                case 5://diamond
+                System.out.println("/\\ ");
+                System.out.println("\\/ ");
+                System.out.println("");
+                System.out.println("Prank kardiye aapke sath ;)");
+                System.out.println("");
+                break;
+                default:
+                System.out.println("Invalid Choice");
+                
+                
             }  
         } 
         System.out.println("Do you want to continue? (y/n)");
@@ -727,6 +745,125 @@ public class everything
         {
             mainmenu();
         }
+    }
+    static void string()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose operation to perform :");
+        System.out.println("1: String length");
+        System.out.println("2: String concatenation");
+        System.out.println("3: String comparison");
+        System.out.println("4: String reverse");
+        System.out.println("5: String substring");
+        System.out.println("6: Palindrome check");
+        int choice = sc.nextInt();
+        String s1,s2,s3;
+        switch(choice)
+        {
+            case 1:
+            System.out.println("Enter the string :");
+            s1 = sc.next();
+            System.out.println("The length of the string is : "+s1.length());
+            break;
+
+            case 2:
+            System.out.println("Enter the first string :");
+            s1 = sc.next();
+            System.out.println("Enter the second string :");
+            s2 = sc.next();
+            System.out.println("Do you want a space in between?");
+            System.out.println("if yes then enter y else n");
+            char ch = sc.next().charAt(0);
+            if(ch=='y')
+            {
+                System.out.println("The concatenated string is : "+s1+" "+s2);
+            }
+            else
+            {
+                System.out.println("The concatenated string is : "+s1.concat(s2));
+            }
+
+            break;
+
+            case 3:
+            System.out.println("Enter the first string :");
+            s1 = sc.next();
+            System.out.println("Enter the second string :");
+            s2 = sc.next();
+            boolean result1 = s1.equals(s2);
+            if(result1 == true)
+            {
+                System.out.println("The compared strings are the same ");
+            }
+            else
+            {
+                System.out.println("The compared strings are different ");
+            }
+            break;
+
+            case 4:
+            System.out.println("Enter the string :");
+            s1 = sc.next();
+            s2="";
+            for(int i=s1.length()-1;i>=0;i--)
+            {
+                s2 = s2 + s1.charAt(i);
+            }
+            System.out.println("The reversed string is : "+s2);
+            break;
+
+            case 5:
+            System.out.println("Enter the string :");
+            s1 = sc.next();
+            System.out.println("Enter the substring indexes :");
+            System.out.println("(The string starts from the first index value goes till the second index value that itself is not included)");
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            System.out.println("The substring is : "+s1.substring(a,b));
+            break;
+
+            case 6:
+            System.out.println("Enter the string :");
+            s1 = sc.next();
+            s2="";
+            for(int i=0;i<s1.length();i++)
+            {
+                s2 = s2 + s1.charAt(i);
+            }
+            boolean result = s1.equals(s2);
+
+            if(result)
+            {
+                System.out.println("The string is a palindrome");
+            }
+            else
+            {
+                System.out.println("The string is not a palindrome");
+            }
+            break;
+            
+            default:
+            System.out.println("Invalid choice");
+            
+        }
+
+        System.out.println("Do you want to continue? (y/n)");
+        System.out.println("\nIf you wan to go back to the main menu, Enter (b) \n");
+        char ch = sc.next().charAt(0);
+        if(ch=='y'||ch=='Y')
+        {
+            string();
+        }
+        if(ch=='n'||ch=='N')
+        {
+            System.out.println("THANK YOU!");
+        }
+        if(ch=='b'||ch=='B')
+        {
+            mainmenu();
+        }
+
+
     }
 
 
