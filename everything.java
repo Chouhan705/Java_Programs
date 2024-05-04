@@ -756,6 +756,7 @@ public class everything
         System.out.println("4: String reverse");
         System.out.println("5: String substring");
         System.out.println("6: Palindrome check");
+        System.out.println("7: String Concatenation");
         int choice = sc.nextInt();
         String s1,s2,s3;
         switch(choice)
@@ -767,9 +768,9 @@ public class everything
             break;
 
             case 2:
-            System.out.println("Enter the strings with underscroll(_) as the partition in between");
+            System.out.println("Enter the strings with fullstop(.) as the partition in between");
             s1=sc.next();
-            String breaker="[_]";
+            String breaker="[.]";
             String[] result2=s1.split(breaker);
             for(int i=0;i<result2.length;i++)
             {
@@ -833,6 +834,20 @@ public class everything
             {
                 System.out.println("The string is not a palindrome");
             }
+            break;
+
+            case 7:
+            System.out.println("Enter the number of strings :");
+            int n = sc.nextInt();
+            String result3 ="";
+            for(int i=0 ; i<n;i++)
+            {
+                System.out.println("Enter the string :");
+                s1 = sc.next();
+                result3 = result3 + s1 + " ";
+            }
+            System.out.println(result3);
+
             break;
 
             default:
