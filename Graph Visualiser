@@ -16,8 +16,7 @@ class trial
         y[3] = 0;
         int[] newx = new int[8];
         int[] newy = new int[8];
-        int i , j , k;
-
+        int i ;
         if(y[0]!=0)
         {
             newx[0] = 0;
@@ -63,8 +62,6 @@ class trial
             {
                 System.out.println(newx[i]+" "+newy[i]);
             }
-
         }
-
     }
 }
