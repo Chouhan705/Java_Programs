@@ -7,6 +7,7 @@ class trial
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the number of points");
         int n = sc.nextInt();
+        System.out.println("\033[H\033[2J");
         System.out.println("Enter the values of Coordinates of the points in the following format ");
         System.out.println("x-coordinate  y-coordinate");
         int i ;
@@ -20,6 +21,7 @@ class trial
         }
         int[] newx = new int[((2*n)-1)];
         int[] newy = new int[((2*n)-1)];
+        System.out.println("\033[H\033[2J");
         System.out.println("Here is the new flattened graph");
         System.out.println("");
         if(y[0]!=0)
