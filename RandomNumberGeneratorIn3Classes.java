@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class personal
+public class RandomNumberFor3Body
 {
     static int random1()
     {
