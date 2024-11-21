@@ -1,0 +1,360 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
+import java.util.*;
+
+public class PaintPixel extends Application {
+    private static final int CANVAS_SIZE = 100;
+    private static final int VIEWPORT_SIZE = 20;
+    private static final int CELL_SIZE = 20;
+
+    private Rectangle[][] canvas;
+    private GridPane gridPane;
+    private ScrollPane scrollPane;
+    private Color currentColor = Color.BLACK;
+    private DrawingTool currentTool = DrawingTool.FREEHAND;
+    private int[] lineStart = new int[2];
+    private int[] lineEnd = new int[2];
+    private boolean isDrawing = false;
+
+    private enum DrawingTool {
+        FREEHAND,
+        LINE_COORDINATE,
+        LINE_MOUSE,
+        CIRCLE
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        canvas = new Rectangle[CANVAS_SIZE][CANVAS_SIZE];
+        gridPane = new GridPane();
+        scrollPane = new ScrollPane();
+
+        BorderPane root = new BorderPane();
+        root.setLeft(createToolbar());
+
+        initializeCanvas();
+        scrollPane.setContent(gridPane);
+        scrollPane.setPrefViewportWidth(VIEWPORT_SIZE * CELL_SIZE);
+        scrollPane.setPrefViewportHeight(VIEWPORT_SIZE * CELL_SIZE);
+        root.setCenter(scrollPane);
+
+        Scene scene = new Scene(root);
+        setupMouseHandlers();
+        setupKeyboardHandlers(scene);
+
+        primaryStage.setTitle("Paint Clone");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private VBox createToolbar() {
+        VBox toolBox = new VBox(10);
+        toolBox.setPadding(new Insets(10));
+
+        // Color picker
+        ComboBox<String> colorPicker = new ComboBox<>();
+        colorPicker.getItems().addAll(
+                "Black", "Red", "Green", "Blue", "Yellow", "Purple", "Orange", "White","Gold"
+        );
+        colorPicker.setValue("Black");
+        colorPicker.setOnAction(e -> {
+            switch (colorPicker.getValue()) {
+                case "Black" -> currentColor = Color.BLACK;
+                case "Red" -> currentColor = Color.RED;
+                case "Green" -> currentColor = Color.GREEN;
+                case "Blue" -> currentColor = Color.BLUE;
+                case "Yellow" -> currentColor = Color.YELLOW;
+                case "Purple" -> currentColor = Color.PURPLE;
+                case "Orange" -> currentColor = Color.ORANGE;
+                case "White" -> currentColor = Color.WHITE;
+                case "Gold" -> currentColor = Color.GOLD;
+            }
+        });
+
+        // Tool buttons
+        ToggleGroup toolGroup = new ToggleGroup();
+
+        RadioButton freehandBtn = new RadioButton("Freehand");
+        freehandBtn.setToggleGroup(toolGroup);
+        freehandBtn.setSelected(true);
+        freehandBtn.setOnAction(e -> currentTool = DrawingTool.FREEHAND);
+
+        RadioButton lineCoordBtn = new RadioButton("Line (Coordinates)");
+        lineCoordBtn.setToggleGroup(toolGroup);
+        lineCoordBtn.setOnAction(e -> {
+            currentTool = DrawingTool.LINE_COORDINATE;
+            showLineCoordinateDialog();
+        });
+
+        RadioButton lineMouseBtn = new RadioButton("Line (Mouse)");
+        lineMouseBtn.setToggleGroup(toolGroup);
+        lineMouseBtn.setOnAction(e -> currentTool = DrawingTool.LINE_MOUSE);
+
+        RadioButton circleBtn = new RadioButton("Circle");
+        circleBtn.setToggleGroup(toolGroup);
+        circleBtn.setOnAction(e -> currentTool = DrawingTool.CIRCLE);
+
+        Button clearBtn = new Button("Clear Canvas");
+        clearBtn.setOnAction(e -> clearCanvas());
+
+        toolBox.getChildren().addAll(
+                new Label("Colors:"),
+                colorPicker,
+                new Separator(),
+                new Label("Tools:"),
+                freehandBtn,
+                lineCoordBtn,
+                lineMouseBtn,
+                circleBtn,
+                new Separator(),
+                clearBtn
+        );
+
+        return toolBox;
+    }
+
+    private void initializeCanvas() {
+        for (int i = 0; i < CANVAS_SIZE; i++) {
+            for (int j = 0; j < CANVAS_SIZE; j++) {
+                Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE);
+                cell.setFill(Color.WHITE);
+                cell.setStroke(Color.LIGHTGRAY);
+                canvas[i][j] = cell;
+                gridPane.add(cell, j, i);
+            }
+        }
+    }
+
+    private void clearCanvas() {
+        for (int i = 0; i < CANVAS_SIZE; i++) {
+            for (int j = 0; j < CANVAS_SIZE; j++) {
+                canvas[i][j].setFill(Color.WHITE);
+            }
+        }
+    }
+
+    private void setupMouseHandlers() {
+        gridPane.setOnMousePressed(this::handleMousePressed);
+        gridPane.setOnMouseDragged(this::handleMouseDragged);
+    }
+
+    private void setupKeyboardHandlers(Scene scene) {
+        scene.setOnKeyPressed(event -> {
+            int[] currentPos = getCurrentCell();
+            switch (event.getCode()) {
+                case W -> draw(currentPos[0] - 1, currentPos[1]);
+                case S -> draw(currentPos[0] + 1, currentPos[1]);
+                case A -> draw(currentPos[0], currentPos[1] - 1);
+                case D -> draw(currentPos[0], currentPos[1] + 1);
+            }
+        });
+    }
+
+    private int[] getCellFromMouse(MouseEvent event) {
+        double mouseX = event.getX() + scrollPane.getHvalue() *
+                (CANVAS_SIZE * CELL_SIZE - scrollPane.getViewportBounds().getWidth());
+        double mouseY = event.getY() + scrollPane.getVvalue() *
+                (CANVAS_SIZE * CELL_SIZE - scrollPane.getViewportBounds().getHeight());
+
+        int col = (int) Math.floor(mouseX / CELL_SIZE);
+        int row = (int) Math.floor(mouseY / CELL_SIZE);
+
+        return new int[]{
+                Math.max(0, Math.min(row, CANVAS_SIZE - 1)),
+                Math.max(0, Math.min(col, CANVAS_SIZE - 1))
+        };
+    }
+
+    private int[] getCurrentCell() {
+        double scrollX = scrollPane.getHvalue() * (CANVAS_SIZE - VIEWPORT_SIZE);
+        double scrollY = scrollPane.getVvalue() * (CANVAS_SIZE - VIEWPORT_SIZE);
+        return new int[]{(int) scrollY + VIEWPORT_SIZE / 2, (int) scrollX + VIEWPORT_SIZE / 2};
+    }
+
+    private void handleMousePressed(MouseEvent event) {
+        int[] pos = getCellFromMouse(event);
+
+        switch (currentTool) {
+            case LINE_MOUSE -> {
+                if (!isDrawing) {
+                    lineStart = pos;
+                    isDrawing = true;
+                } else {
+                    lineEnd = pos;
+                    drawLine(lineStart[0], lineStart[1], lineEnd[0], lineEnd[1]);
+                    isDrawing = false;
+                }
+            }
+            case FREEHAND -> draw(pos[0], pos[1]);
+            case CIRCLE -> showCircleDialog(pos[0], pos[1]);
+        }
+    }
+
+    private void handleMouseDragged(MouseEvent event) {
+        if (currentTool == DrawingTool.FREEHAND) {
+            int[] pos = getCellFromMouse(event);
+            draw(pos[0], pos[1]);
+        }
+    }
+
+    private void draw(int row, int col) {
+        if (row >= 0 && row < CANVAS_SIZE && col >= 0 && col < CANVAS_SIZE) {
+            canvas[row][col].setFill(currentColor);
+        }
+    }
+
+    private void showLineCoordinateDialog() {
+        Dialog<int[]> dialog = new Dialog<>();
+        dialog.setTitle("Line Coordinates");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField startX = new TextField();
+        TextField startY = new TextField();
+        TextField endX = new TextField();
+        TextField endY = new TextField();
+
+        grid.add(new Label("Start X (0-" + (CANVAS_SIZE-1) + "):"), 0, 0);
+        grid.add(startX, 1, 0);
+        grid.add(new Label("Start Y (0-" + (CANVAS_SIZE-1) + "):"), 0, 1);
+        grid.add(startY, 1, 1);
+        grid.add(new Label("End X (0-" + (CANVAS_SIZE-1) + "):"), 0, 2);
+        grid.add(endX, 1, 2);
+        grid.add(new Label("End Y (0-" + (CANVAS_SIZE-1) + "):"), 0, 3);
+        grid.add(endY, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialog.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                try {
+                    int sx = Integer.parseInt(startX.getText());
+                    int sy = Integer.parseInt(startY.getText());
+                    int ex = Integer.parseInt(endX.getText());
+                    int ey = Integer.parseInt(endY.getText());
+
+                    if (sx < 0 || sx >= CANVAS_SIZE || sy < 0 || sy >= CANVAS_SIZE ||
+                            ex < 0 || ex >= CANVAS_SIZE || ey < 0 || ey >= CANVAS_SIZE) {
+                        showAlert("Invalid Coordinates",
+                                "Coordinates must be between 0 and " + (CANVAS_SIZE-1));
+                        return null;
+                    }
+
+                    return new int[]{sx, sy, ex, ey};
+                } catch (NumberFormatException e) {
+                    showAlert("Invalid Input", "Please enter valid numbers");
+                    return null;
+                }
+            }
+            return null;
+        });
+
+        Optional<int[]> result = dialog.showAndWait();
+        result.ifPresent(coords ->
+                drawLine(coords[0], coords[1], coords[2], coords[3]));
+    }
+
+    private void showCircleDialog(int centerX, int centerY) {
+        Dialog<Integer> dialog = new Dialog<>();
+        dialog.setTitle("Circle Radius");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField radius = new TextField();
+        grid.add(new Label("Center X: " + centerX), 0, 0);
+        grid.add(new Label("Center Y: " + centerY), 0, 1);
+        grid.add(new Label("Radius:"), 0, 2);
+        grid.add(radius, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialog.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                try {
+                    return Integer.parseInt(radius.getText());
+                } catch (NumberFormatException e) {
+                    showAlert("Invalid Input", "Please enter a valid number for radius");
+                    return null;
+                }
+            }
+            return null;
+        });
+
+        Optional<Integer> result = dialog.showAndWait();
+        result.ifPresent(r -> drawCircle(centerX, centerY, r));
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void drawLine(int x0, int y0, int x1, int y1) {
+        int dx = Math.abs(x1 - x0);
+        int dy = Math.abs(y1 - y0);
+        int sx = x0 < x1 ? 1 : -1;
+        int sy = y0 < y1 ? 1 : -1;
+        int err = dx - dy;
+
+        while (true) {
+            draw(x0, y0);
+            if (x0 == x1 && y0 == y1) break;
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x0 += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
+        }
+    }
+
+    private void drawCircle(int centerX, int centerY, int radius) {
+        int x = radius;
+        int y = 0;
+        int decisionOver2 = 1 - x;
+
+        while (y <= x) {
+            draw(centerX + x, centerY + y);
+            draw(centerX + y, centerY + x);
+            draw(centerX - x, centerY + y);
+            draw(centerX - y, centerY + x);
+            draw(centerX - x, centerY - y);
+            draw(centerX - y, centerY - x);
+            draw(centerX + x, centerY - y);
+            draw(centerX + y, centerY - x);
+
+            y++;
+            if (decisionOver2 <= 0) {
+                decisionOver2 += 2 * y + 1;
+            } else {
+                x--;
+                decisionOver2 += 2 * (y - x) + 1;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
