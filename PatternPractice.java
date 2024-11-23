@@ -57,6 +57,7 @@
 1 4 6 4 1
 */
 
+import java.lang.*;
 import java.util.*;
 public class PatternPractice
 {
@@ -76,6 +77,7 @@ public class PatternPractice
     
     public static void Q1(int num)
     {
+        System.out.println("Q1 \n");
         for (i = 1; i < num+1; i++)
         {
             for(j=i; j < num+1; j++)
@@ -89,40 +91,51 @@ public class PatternPractice
             System.out.println();
         }
 
+        System.out.println("");
     }
     
     public static void Q2(int num)
     {
+        System.out.println("Q2 \n");
 
+
+
+        System.out.println("");
     }
     
     public static void Q3(int num)
     {
+        System.out.println("Q3 \n");
 
+
+
+        System.out.println("");
     }
     
     public static void Q4(int num)
     {
+        System.out.println("Q4 \n");
         int len=0;
         for(int counter = 1 ;counter < num+1 ; counter++)
         {
             len++;
         }
-        len=2*len+1;
+        len=(2*len)-1;
         int[][] pattern = new int[len][len];
         i = 0;
         j = 0;
         for(int counter = num ; counter > 0 ; counter--)
         {
-            if(counter == 1)
+            int k,l;
+            for(k=i;k<len;k++)
             {
-                counter=num;
-            }
-            for(int k=i;k<len;k++)
-            {
-                for(int l=j;l<len;l++)
+                for(l=j;l<len;l++)
                 { 
                     pattern[k][l] = counter;
+                    if(k+l>len-1)
+                    {
+                        pattern[k][l] = pattern[len-1-k][len-1-l];
+                    }
                     
                 }
             }
@@ -138,10 +151,15 @@ public class PatternPractice
             System.out.println();
         }
 
+        System.out.println("");
     }
     
     public static void Q5(int num)
     {
+        System.out.println("Q5 \n");
 
+
+
+        System.out.println("");
     }
 }
