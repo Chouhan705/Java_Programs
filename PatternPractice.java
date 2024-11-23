@@ -82,11 +82,11 @@ public class PatternPractice
         {
             for(j=i; j < num+1; j++)
             {
-                System.out.print(j);
+                System.out.print(j +" ");
             }
             for(j=1; j < i; j++)
             {
-                System.out.print(j);
+                System.out.print(j + " ");
             }
             System.out.println();
         }
@@ -154,12 +154,36 @@ public class PatternPractice
         System.out.println("");
     }
     
-    public static void Q5(int num)
+    public static void Q5(int num)//pascal triangle
     {
         System.out.println("Q5 \n");
-
-
+       
+        PatternPractice ObjectForFunction = new PatternPractice();
+        for(i=0;i<num;i++)
+        {
+            for(j=0;j<num-i-1;j++)
+            {
+                System.out.print(" ");
+            }
+            for(j=0;j<=i;j++)
+            {
+                System.out.print(ObjectForFunction.factorial(i)/(ObjectForFunction.factorial(j)*ObjectForFunction.factorial(i-j)) + " ");//   n!/(j-r)!*r!
+            }
+            System.out.println();
+        }
 
         System.out.println("");
+    }
+    public int factorial(int x)
+    {
+        if(x==0)
+        {
+            return 1;
+        }
+        else 
+        {
+            return x * factorial(x-1);
+        }
+
     }
 }
