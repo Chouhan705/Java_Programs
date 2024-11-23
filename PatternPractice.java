@@ -98,7 +98,18 @@ public class PatternPractice
     {
         System.out.println("Q2 \n");
 
-
+        for(i = 0 ; i < num ; i++)
+        {
+            for(j=0 ; j < num-i-1 ; j++)
+            {
+                System.out.print("  ");
+            }
+            for(j=i+1 ; j > 0; j--)
+            {
+                System.out.print(j+ " ");
+            }
+            System.out.println();
+        }
 
         System.out.println("");
     }
