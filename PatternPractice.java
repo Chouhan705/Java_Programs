@@ -117,8 +117,28 @@ public class PatternPractice
     public static void Q3(int num)
     {
         System.out.println("Q3 \n");
-
-
+        int even =2 , odd=1;
+        for(i = 1; i <=num; i++)
+        {
+            for(j=1; j<num-i+1 ;j++)
+            {
+                System.out.print("   ");
+            }
+            for(j=1;j<=i;j++)
+            {
+                if(i%2==0)
+                {
+                    System.out.print(even+" ");
+                    even+=2;
+                }
+                else
+                {
+                    System.out.print(odd+" ");
+                    odd+=2;
+                }
+            }
+            System.out.println();
+        }
 
         System.out.println("");
     }
